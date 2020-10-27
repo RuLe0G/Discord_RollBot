@@ -23,6 +23,7 @@ namespace Roll20Bot
         {
             client = new DiscordSocketClient();
             commands = new CommandService();
+
             services = new ServiceCollection()
                 .AddSingleton(client)
                 .AddSingleton(commands)

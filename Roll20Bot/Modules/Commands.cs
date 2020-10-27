@@ -14,17 +14,18 @@ namespace Roll20Bot.Modules
 
         private Color Clr = Color.Gold;
         private string txt;
+        private string finalStr;
         private string[] txtPack = new string[10] {
-            "Отличный бросок",
-            "Можно и лучше",
-            "Такова судьба",
-            "4",
-            "5",
-            "6",
-            "7", 
-            "8", 
-            "9", 
-            "10", 
+            "Отличный бросок!",
+            "Можно и лучше.",
+            "Такова судьба.",
+            "Сегодня определенно твой день!",
+            "Хм.. Сойдёт.",
+            "У тебя было множество вариантов успеха и только один провальный, и угадай какой у тебя выпал?",
+            "Возле тебя случайно черная кошка мимо не пробегала?",
+            "Таков путь.",
+            "Как в казино.",
+            "По моему кто-то подкручиват броски."
         };
 
 
@@ -40,7 +41,7 @@ namespace Roll20Bot.Modules
             {
                 var EmbedBuilder = new EmbedBuilder()
                 .WithColor(Clr)
-                .WithTitle("Неправильный формат запроса. Пример запроса **xxdyy**, где x - число кубов, а y - кол-во граней.")
+                .WithTitle("Неправильный формат запроса.")
                 .WithFooter(footer =>
                 {
                     footer
@@ -53,7 +54,14 @@ namespace Roll20Bot.Modules
                 int r = 0;
                 for (int i = 0; i < quantityXfacets.Key; i++)
                 {
-                    r += random.Next(1, quantityXfacets.Value+1);
+                    int t = random.Next(1, quantityXfacets.Value + 1);
+                    r += t;
+                    finalStr += t.ToString();
+                    if (i != quantityXfacets.Key -1)
+                    {
+                        finalStr += " + ";
+                    }
+                    
                 }
                 
 
@@ -70,13 +78,13 @@ namespace Roll20Bot.Modules
                 else
                 {
                     Clr = Color.Green;
-                    txt = txtPack[random.Next(0, 10)];
+                    txt = txtPack[random.Next(0, txtPack.Length)];
                 }
 
 
                 var EmbedBuilder = new EmbedBuilder()
                     .WithColor(Clr)
-                    .WithTitle("Бросок - " + r.ToString() + "!")
+                    .WithTitle("Бросок - " + finalStr + " = " + r + "!")
                     .WithFooter(footer =>
                         {
                             footer
@@ -121,19 +129,16 @@ namespace Roll20Bot.Modules
         {
             Embed embed;
             var EmbedBuilder = new EmbedBuilder()
-                   .WithColor(Color.Teal)
+                   .WithColor(Color.Teal)                   
                    .WithTitle("Команды")
                    .WithFooter(footer =>
                    {
                        footer
-                        .WithText("!r xxxdyyy - бросок кубиков (x - число кубов, а y - кол-во граней)." +
-                        "\n!h - памагат" +
-                        "\n!book - даст вам ссылку на книжку на гугл диске" +
-                        "\n!conv - Конвертер монет из DnD" +
-                        "\n что-то может быть когда-нить или вообще ничего не будет и я уничтожу эту строку");
+                        .WithText("!r xxxdyyy - бросок кубиков (x - число кубов, а y - кол-во граней).");
                    });
             embed = EmbedBuilder.Build();
             await ReplyAsync(embed: embed);
         }
     }
 }
+
