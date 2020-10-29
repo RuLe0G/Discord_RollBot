@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Discord;
+﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Roll20Bot
 {
@@ -64,7 +61,7 @@ namespace Roll20Bot
             if (message.HasStringPrefix("!", ref argPos))
             {
                 var result = await commands.ExecuteAsync(context, argPos, services);
-                if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);  
+                if (!result.IsSuccess) Console.WriteLine(result.ErrorReason);
             }
         }
     }

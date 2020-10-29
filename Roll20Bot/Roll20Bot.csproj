@@ -91,7 +91,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DB\WeaponsDnD.csv" />
+    <None Include="DB\WeaponsDnD.json" />
+    <None Include="DB\WeaponsDnD.tsv" />
+    <None Include="DB\WeaponsDnD.xlsx" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DB\spellsDnD.xml" />
+    <Content Include="DB\WeaponsDnD.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

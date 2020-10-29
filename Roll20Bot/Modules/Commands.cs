@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Discord;
+using Discord.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Discord;
-using Discord.Commands;
+using System.Xml;
 
 namespace Roll20Bot.Modules
 {
@@ -57,13 +57,13 @@ namespace Roll20Bot.Modules
                     int t = random.Next(1, quantityXfacets.Value + 1);
                     r += t;
                     finalStr += t.ToString();
-                    if (i != quantityXfacets.Key -1)
+                    if (i != quantityXfacets.Key - 1)
                     {
                         finalStr += " + ";
                     }
-                    
+
                 }
-                
+
 
                 if (r == 1)
                 {
@@ -92,7 +92,7 @@ namespace Roll20Bot.Modules
                         });
                 embed = EmbedBuilder.Build();
             }
-            
+
             await ReplyAsync(embed: embed);
         }
 
@@ -129,7 +129,7 @@ namespace Roll20Bot.Modules
         {
             Embed embed;
             var EmbedBuilder = new EmbedBuilder()
-                   .WithColor(Color.Teal)                   
+                   .WithColor(Color.Teal)
                    .WithTitle("Команды")
                    .WithFooter(footer =>
                    {
@@ -137,6 +137,46 @@ namespace Roll20Bot.Modules
                         .WithText("!r xxxdyyy - бросок кубиков (x - число кубов, а y - кол-во граней).");
                    });
             embed = EmbedBuilder.Build();
+            await ReplyAsync(embed: embed);
+        }
+
+        [Command("Magic")]
+        [Alias("magic", "m", "M", "Магия", "М", "Spell", "spell")]
+        public async Task Spell(string InputStr)
+        {
+            
+            string OutputStr = null;
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\spellsDnD.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Item(0).Value.ToString().ToUpper() == InputStr.ToUpper())
+                {
+                    foreach (XmlNode childnode in xnode.ChildNodes)
+                    {
+                        OutputStr += $"{childnode.InnerText}" + "\n";
+                    }
+                        
+                }
+            }
+
+            if (OutputStr == null)
+            {
+                OutputStr = "Ничего не найдено";
+            }
+
+                Embed embed;
+            var EmbedBuilder = new EmbedBuilder()
+                   .WithColor(Color.Teal)
+                   .WithFooter(footer =>
+                   {
+                       footer
+                        .WithText(OutputStr);
+                   });
+            embed = EmbedBuilder.Build();
+
             await ReplyAsync(embed: embed);
         }
     }
