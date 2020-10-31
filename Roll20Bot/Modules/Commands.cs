@@ -134,14 +134,23 @@ namespace Roll20Bot.Modules
                    .WithFooter(footer =>
                    {
                        footer
-                        .WithText("!r xxxdyyy - бросок кубиков (x - число кубов, а y - кол-во граней).");
+                        .WithText("Список команд бота:\n" +
+                        "!h \n!help, !помощь\n\n" +
+                        "Бросок кубика:\n" +
+                        "!r XdY — x - число кубов, а y - кол-во граней \n(!roll, !dice)\n\n" +
+                        "Узнать характеристики брони:\n" +
+                        "!a Название \n!armor, !доспех\n\n" +
+                        "Узнать характеристики оружия:\n" +
+                        "!w Название \n!weapon, !оружие\n\n" +
+                        "Узнать описание любого заклинания:\n" +
+                        "!m Название (если в заклинании 2 и больше слов, то слова нужно заключить в кавычки) \n!magic, !spell, !магия");
                    });
             embed = EmbedBuilder.Build();
             await ReplyAsync(embed: embed);
         }
 
         [Command("Magic")]
-        [Alias("magic", "m", "M", "Магия", "М", "Spell", "spell")]
+        [Alias("magic", "m", "M", "магия", "М", "Spell", "spell")]
         public async Task Spell(string InputStr)
         {
             
@@ -164,10 +173,130 @@ namespace Roll20Bot.Modules
 
             if (OutputStr == null)
             {
-                OutputStr = "Ничего не найдено";
+                OutputStr = "Ничего не найдено. Попробуйте изменить запрос";
             }
 
                 Embed embed;
+            var EmbedBuilder = new EmbedBuilder()
+                   .WithColor(Color.Teal)
+                   .WithFooter(footer =>
+                   {
+                       footer
+                        .WithText(OutputStr);
+                   });
+            embed = EmbedBuilder.Build();
+
+            await ReplyAsync(embed: embed);
+        }
+
+        [Command("Armor")]
+        [Alias("armor", "a", "Д", "Доспех", "д", "доспех")]
+        public async Task Armor(string InputStr)
+        {
+
+            string OutputStr = null;
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\armorsDnD.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Item(0).Value.ToString().ToUpper() == InputStr.ToUpper())
+                {
+                    foreach (XmlNode childnode in xnode.ChildNodes)
+                    {
+                        OutputStr += $"{childnode.InnerText}" + "\n";
+                    }
+
+                }
+            }
+
+            if (OutputStr == null)
+            {
+                OutputStr = "Ничего не найдено. Попробуйте изменить запрос";
+            }
+
+            Embed embed;
+            var EmbedBuilder = new EmbedBuilder()
+                   .WithColor(Color.Teal)
+                   .WithFooter(footer =>
+                   {
+                       footer
+                        .WithText(OutputStr);
+                   });
+            embed = EmbedBuilder.Build();
+
+            await ReplyAsync(embed: embed);
+        }
+
+        [Command("Weapon")]
+        [Alias("weapon", "w", "О", "Оружие", "оружие", "о")]
+        public async Task Weapon(string InputStr)
+        {
+
+            string OutputStr = null;
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\WeaponsDnD.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Item(0).Value.ToString().ToUpper() == InputStr.ToUpper())
+                {
+                    foreach (XmlNode childnode in xnode.ChildNodes)
+                    {
+                        OutputStr += $"{childnode.InnerText}" + "\n";
+                    }
+
+                }
+            }
+
+            if (OutputStr == null)
+            {
+                OutputStr = "Ничего не найдено. Попробуйте изменить запрос";
+            }
+
+            Embed embed;
+            var EmbedBuilder = new EmbedBuilder()
+                   .WithColor(Color.Teal)
+                   .WithFooter(footer =>
+                   {
+                       footer
+                        .WithText(OutputStr);
+                   });
+            embed = EmbedBuilder.Build();
+
+            await ReplyAsync(embed: embed);
+        }
+
+        [Command("Equipment")]
+        [Alias("equipment", "e","E", "С", "с", "Снаряжение", "снаряжение")]
+        public async Task Equipment(string InputStr)
+        {
+
+            string OutputStr = null;
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\Equipment.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Item(0).Value.ToString().ToUpper() == InputStr.ToUpper())
+                {
+                    foreach (XmlNode childnode in xnode.ChildNodes)
+                    {
+                        OutputStr += $"{childnode.InnerText}" + "\n";
+                    }
+
+                }
+            }
+
+            if (OutputStr == null)
+            {
+                OutputStr = "Ничего не найдено. Попробуйте изменить запрос";
+            }
+
+            Embed embed;
             var EmbedBuilder = new EmbedBuilder()
                    .WithColor(Color.Teal)
                    .WithFooter(footer =>
