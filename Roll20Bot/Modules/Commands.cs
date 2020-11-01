@@ -142,6 +142,10 @@ namespace Roll20Bot.Modules
                         "!a Название \n!armor, !доспех\n\n" +
                         "Узнать характеристики оружия:\n" +
                         "!w Название \n!weapon, !оружие\n\n" +
+                        "Узнать содержимое и описание инструментов\n" +
+                        "!t Название\n!tool, !инструмент\n\n" +
+                        "Узнать о конкретном снаряжении (стоимость, вес и др.):\n" +
+                        "!e Название\n!equipment, !снаряжение\n\n" +
                         "Узнать описание любого заклинания:\n" +
                         "!m Название (если в заклинании 2 и больше слов, то слова нужно заключить в кавычки) \n!magic, !spell, !магия");
                    });
@@ -308,6 +312,47 @@ namespace Roll20Bot.Modules
 
             await ReplyAsync(embed: embed);
         }
+
+        [Command("tool")]
+        [Alias("Tool", "t", "T", "И", "и", "инструмент", "Инструмент")]
+        public async Task Toolkits(string InputStr)
+        {
+
+            string OutputStr = null;
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\toolkits.xml");
+
+            XmlElement xRoot = xDoc.DocumentElement;
+            foreach (XmlNode xnode in xRoot)
+            {
+                if (xnode.Attributes.Item(0).Value.ToString().ToUpper() == InputStr.ToUpper())
+                {
+                    foreach (XmlNode childnode in xnode.ChildNodes)
+                    {
+                        OutputStr += $"{childnode.InnerText}" + "\n";
+                    }
+
+                }
+            }
+
+            if (OutputStr == null)
+            {
+                OutputStr = "Ничего не найдено. Попробуйте изменить запрос";
+            }
+
+            Embed embed;
+            var EmbedBuilder = new EmbedBuilder()
+                   .WithColor(Color.Teal)
+                   .WithFooter(footer =>
+                   {
+                       footer
+                        .WithText(OutputStr);
+                   });
+            embed = EmbedBuilder.Build();
+
+            await ReplyAsync(embed: embed);
+        }
+
     }
 }
 

@@ -97,6 +97,8 @@
     <Content Include="DB\armorsDnD.xml" />
     <Content Include="DB\Equipment.xml" />
     <Content Include="DB\spellsDnD.xml" />
+    <Content Include="DB\Tool.xml" />
+    <Content Include="DB\toolkits.xml" />
     <Content Include="DB\WeaponsDnD.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
