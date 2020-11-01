@@ -26,7 +26,7 @@ namespace Roll20Bot
                 .AddSingleton(commands)
                 .BuildServiceProvider();
 
-            string token = "NzcwMTc4ODQzNzM3OTgwOTM5.X5Zy8Q.W-FazTtPvp3TsfOqXFNjGGl4a1A";
+            string token = "TOKEN la-la-la-la";
 
             client.Log += Client_Log;
 
