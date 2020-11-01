@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace Roll20Bot.Modules
 {
@@ -160,7 +161,7 @@ namespace Roll20Bot.Modules
             
             string OutputStr = null;
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\spellsDnD.xml");
+            xDoc.Load(Application.StartupPath + @"\DB\spellsDnD.xml");
 
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
@@ -200,7 +201,7 @@ namespace Roll20Bot.Modules
 
             string OutputStr = null;
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\armorsDnD.xml");
+            xDoc.Load(Application.StartupPath + @"\DB\armorsDnD.xml");
 
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
@@ -240,7 +241,7 @@ namespace Roll20Bot.Modules
 
             string OutputStr = null;
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\WeaponsDnD.xml");
+            xDoc.Load(Application.StartupPath + @"\DB\WeaponsDnD.xml");
 
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
@@ -280,7 +281,7 @@ namespace Roll20Bot.Modules
 
             string OutputStr = null;
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\Equipment.xml");
+            xDoc.Load(Application.StartupPath + @"\DB\Equipment.xml");
 
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
@@ -320,7 +321,7 @@ namespace Roll20Bot.Modules
 
             string OutputStr = null;
             XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(@"D:\Stud\C#\Roll20Bot\Roll20Bot\Roll20Bot\DB\toolkits.xml");
+            xDoc.Load(Application.StartupPath + @"\DB\toolkits.xml");
 
             XmlElement xRoot = xDoc.DocumentElement;
             foreach (XmlNode xnode in xRoot)
